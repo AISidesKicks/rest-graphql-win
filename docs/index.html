@@ -366,8 +366,23 @@ pre .s { color: #8fd6a8; }
   padding: 14px 16px;
 }
 .credit b { display: block; font-family: var(--display); font-weight: 600; margin-bottom: 2px; }
+.credit b a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .28); }
+.credit b a:hover { color: #7fd6c6; border-bottom-color: #7fd6c6; }
 .credit span { font-size: .86rem; color: #a9b4c4; }
 .credit a { color: #7fd6c6; }
+
+.credits-sub {
+  margin: 34px 0 12px;
+  text-align: center;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.credits-list { text-align: center; font-size: .92rem; line-height: 2.1; margin: 0; }
+.credits-list a { color: #7fd6c6; text-decoration: none; border-bottom: 1px solid rgba(127, 214, 198, .35); }
+.credits-list a:hover { border-bottom-color: #7fd6c6; }
 
 .footer-line { text-align: center; margin-top: 30px; font-size: .86rem; color: #8b97a8; }
 .footer-line a { color: #7fd6c6; }
@@ -753,41 +768,50 @@ GraphQL: one HTTP call, the server resolves the graph.
 
     <div class="credit-grid">
       <div class="credit">
-        <b>ArjanCodes</b>
-        <span>Rest and GraphQL video and repo, the starting point for the API side.
-          <a href="https://github.com/ArjanCodes/2022-rest-graphql">2022-rest-graphql</a></span>
+        <b><a href="https://github.com/ArjanCodes/2022-rest-graphql">ArjanCodes</a></b>
+        <span>Rest and GraphQL video and repo, the starting point for the API side.</span>
       </div>
       <div class="credit">
-        <b>PostHog</b>
-        <span>DuckDB versus SQLite, the reference for the storage engine chapter.
-          <a href="https://posthog.com/blog/duckdb-vs-sqlite">duckdb-vs-sqlite</a></span>
+        <b><a href="https://posthog.com/blog/duckdb-vs-sqlite">PostHog</a></b>
+        <span>DuckDB versus SQLite, the reference for the storage engine chapter.</span>
       </div>
       <div class="credit">
-        <b>Model Context Protocol</b>
-        <span>The tool catalog and the transport.
-          <a href="https://mcp.codemode.cc/">mcp.codemode.cc</a></span>
+        <b><a href="https://mcp.codemode.cc/">Model Context Protocol</a></b>
+        <span>The tool catalog and the transport.</span>
       </div>
       <div class="credit">
-        <b>Cloudflare</b>
+        <b><a href="https://blog.cloudflare.com/code-mode-mcp/">Cloudflare</a></b>
         <span>Code mode, one exec tool instead of a wall of tool schemas.</span>
       </div>
       <div class="credit">
-        <b>Anthropic</b>
+        <b><a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic</a></b>
         <span>Code execution with MCP, loading tools on demand and filtering inside the environment.</span>
       </div>
       <div class="credit">
-        <b>Arize Phoenix</b>
+        <b><a href="https://phoenix.arize.com/">Arize Phoenix</a></b>
         <span>The OpenTelemetry backend the traces can be shipped to.</span>
       </div>
       <div class="credit">
-        <b>Pydantic Monty</b>
+        <b><a href="https://pydantic.dev/articles/pydantic-monty">Pydantic Monty</a></b>
         <span>The Python sandbox that runs the code mode programs.</span>
       </div>
       <div class="credit">
-        <b>Strawberry</b>
+        <b><a href="https://strawberry.rocks/">Strawberry</a></b>
         <span>The GraphQL library behind the schema.</span>
       </div>
     </div>
+
+    <h3 class="credits-sub">Built with</h3>
+    <p class="credits-list">
+      <a href="https://fastapi.tiangolo.com/">FastAPI</a>,
+      <a href="https://www.sqlite.org/">SQLite</a>,
+      <a href="https://duckdb.org/">DuckDB</a>,
+      <a href="https://github.com/modelcontextprotocol/python-sdk">MCP Python SDK</a>,
+      <a href="https://github.com/openai/tiktoken">tiktoken</a>,
+      <a href="https://opentelemetry.io/">OpenTelemetry</a>,
+      <a href="https://pixi.prefix.dev/">pixi</a>,
+      <a href="https://pytest.org/">pytest</a>
+    </p>
 
     <p class="footer-line">
       The panels are the original sketches of this project.
