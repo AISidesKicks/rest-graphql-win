@@ -19,7 +19,7 @@ storage engines to show theirs.
 On top of that sits the agent facing layer:
 
 - an **MCP server** at `/mcp`, one tool per operation
-- a **code mode sandbox** where the model writes Python instead of calling tools one by one
+- a **CodeMode sandbox** where the model writes Python instead of calling tools one by one
 
 ## The rule that keeps the comparison honest
 
@@ -80,7 +80,7 @@ The stack:
 | OLTP | SQLite | row store, WAL mode, one writer |
 | OLAP | DuckDB | column store, vectorised, cost based optimiser |
 | MCP | MCP Python SDK | Streamable HTTP, mounted in the same app |
-| Code mode | Pydantic Monty | Rust interpreter for a Python subset, host functions only |
+| CodeMode | Pydantic Monty | Rust interpreter for a Python subset, host functions only |
 | Counting | tiktoken | what the model actually pays |
 | Traces | OpenTelemetry | JSONL exporter, optional OTLP for Phoenix |
 | Environment | pixi | one command, one lock file |
@@ -89,4 +89,4 @@ The stack:
 
 - [01 Data model](01-data-model.md) - the tables, the ETL and the star schema
 - [05 REST vs GraphQL](05-rest-vs-graphql.md) - the comparison everybody came for
-- [09 Savings](09-savings.md) - the code mode numbers, the reason this lab exists
+- [09 Savings](09-savings.md) - the CodeMode numbers, the reason this lab exists

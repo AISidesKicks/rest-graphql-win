@@ -1,4 +1,4 @@
-"""Tests for the code mode sandbox."""
+"""Tests for the CodeMode sandbox."""
 
 from __future__ import annotations
 

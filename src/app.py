@@ -55,11 +55,11 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             services.close()
 
     app = FastAPI(
-        title="REST vs GraphQL vs MCP + code mode lab",
+        title="REST vs GraphQL vs MCP + CodeMode lab",
         description=(
             "One SaaS support and billing domain, four ways to reach it: REST over SQLite, "
             "GraphQL over SQLite, REST over DuckDB and GraphQL over DuckDB. The same MCP "
-            "server and the same code mode sandbox sit on top."
+            "server and the same CodeMode sandbox sit on top."
         ),
         version="0.1.0",
         lifespan=lifespan,

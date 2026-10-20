@@ -9,7 +9,7 @@ The domain is SaaS support and billing. The same data is exposed four ways:
 | REST           | `/api/*`                             | `/api/analytics/*`                 |
 | GraphQL        | `Query.*`                            | `Query.analytics.*`                 |
 | MCP            | one tool per REST operation         | one tool per analytical operation   |
-| Code mode      | the same catalog as typed functions | the same catalog as typed functions |
+| CodeMode      | the same catalog as typed functions | the same catalog as typed functions |
 
 ## The chapters
 
@@ -23,9 +23,9 @@ The domain is SaaS support and billing. The same data is exposed four ways:
 | [05 REST vs GraphQL](05-rest-vs-graphql.md) | Round trips, N+1, errors, caching, versioning |
 | [06 OLTP vs OLAP](06-oltp-vs-olap.md) | The same question on two engines |
 | [07 MCP server](07-mcp-server.md) | The tool catalog, the exposure switch, schema token cost |
-| [08 Code mode](08-code-mode.md) | The Monty sandbox, typed functions, a reference program |
-| [09 Savings](09-savings.md) | Native MCP versus code mode, with numbers |
-| [10 Observability](10-observability.md) | Traces of a REST call, a GraphQL query and a code mode run |
+| [08 CodeMode](08-code-mode.md) | The Monty sandbox, typed functions, a reference program |
+| [09 Savings](09-savings.md) | Native MCP versus CodeMode, with numbers |
+| [10 Observability](10-observability.md) | Traces of a REST call, a GraphQL query and a CodeMode run |
 | [11 Appendix](11-appendix.md) | TLS, OpenAI compatible endpoints, troubleshooting |
 
 ## Run it
@@ -47,7 +47,7 @@ Then:
 ```bash
 pixi run bench      # REST versus GraphQL versus the two engines
 pixi run tools      # the MCP catalog and the token cost per tool
-pixi run savings    # native MCP versus code mode
+pixi run savings    # native MCP versus CodeMode
 pixi run verify     # the whole stack, end to end
 pixi run test       # the pytest suite
 ```

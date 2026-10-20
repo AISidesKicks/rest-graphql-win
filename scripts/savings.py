@@ -1,4 +1,4 @@
-"""Native MCP versus code mode, with the numbers.
+"""Native MCP versus CodeMode, with the numbers.
 
 Offline mode (the default) replays the reference task with a rule based
 planner, so the numbers are reproducible and no API key is needed. With
@@ -27,7 +27,7 @@ from mcplab.catalog import schema_token_report  # noqa: E402
 
 def print_comparison(native: dict[str, Any], code_mode: dict[str, Any]) -> None:
     header = (
-        f"{'metric':<22} {'native MCP':>14} {'code mode':>14} {'change':>12}"
+        f"{'metric':<22} {'native MCP':>14} {'CodeMode':>14} {'change':>12}"
     )
     print(header)
     print("-" * len(header))
@@ -65,7 +65,7 @@ def write_report(native: dict[str, Any], code_mode: dict[str, Any], settings: An
 
 def main() -> int:
     settings = load_settings()
-    parser = argparse.ArgumentParser(description="Native MCP versus code mode")
+    parser = argparse.ArgumentParser(description="Native MCP versus CodeMode")
     parser.add_argument("--live", action="store_true", help="use an OpenAI compatible endpoint")
     parser.add_argument("--task", default=REFERENCE_TASK, help="the task to run")
     parser.add_argument("--json", action="store_true", help="print the raw numbers")
@@ -104,9 +104,9 @@ def main() -> int:
         print_comparison(native, code_mode)
         print()
         print(f"the full catalog is {report['tool_count']} tools, {report['total_tokens']:,} tokens of schemas")
-        print("native MCP pays for all of them, code mode pays for one exec tool")
+        print("native MCP pays for all of them, CodeMode pays for one exec tool")
         print()
-        for name, result in (("native MCP", native), ("code mode", code_mode)):
+        for name, result in (("native MCP", native), ("CodeMode", code_mode)):
             print(f"{name} steps:")
             for step in result["steps"]:
                 print(f"  {json.dumps(step, default=str)}")

@@ -1,4 +1,4 @@
-"""Code mode: the Monty sandbox.
+"""CodeMode: the Monty sandbox.
 
 The model sees one tool, ``exec(code)``. The code runs inside Monty, a Rust
 interpreter for a Python subset. The sandbox has no filesystem, no network and
@@ -33,7 +33,7 @@ from observability.tracing import span
 
 @dataclass
 class CodeModeResult:
-    """What one code mode run produced."""
+    """What one CodeMode run produced."""
 
     stdout: str = ""
     value: Any = None

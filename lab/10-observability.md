@@ -35,7 +35,7 @@ they just travel twice.
 | `service.tickets.close` | the service layer |
 | `db.query` | the repositories, with the SQL text |
 | `mcp.tool.call` | one per MCP tool call |
-| `codemode.exec` | one per code mode run |
+| `codemode.exec` | one per CodeMode run |
 | `agent.turn` | one per agent run |
 
 The nesting is the point. A tool call contains an HTTP request, the HTTP request
@@ -89,7 +89,7 @@ http.server                   181.40 ms   POST /graphql
 Same JSON in the response, ten times the queries. This is the N+1 trap, visible. The
 batch loader is in `src/api/graphql/loaders.py`, it is about thirty lines.
 
-## A code mode run
+## A CodeMode run
 
 ```bash
 pixi run python -c "
@@ -160,7 +160,7 @@ behind it:
 
 - the round trip difference is `http.server` spans
 - the N+1 difference is `db.query` counts
-- the code mode difference is `codemode.exec` with its children
+- the CodeMode difference is `codemode.exec` with its children
 - the engine difference is the `db.query` duration on SQLite against DuckDB
 
 Next: [11 Appendix](11-appendix.md)

@@ -2,7 +2,7 @@
 
 The script boots the app on a free port, runs a REST read, a REST write, a
 GraphQL query, a GraphQL mutation, a partial failure demo, an MCP handshake
-with a tools list and one code mode program, then prints the comparison tables.
+with a tools list and one CodeMode program, then prints the comparison tables.
 No network access needed, everything happens on localhost.
 """
 
@@ -282,7 +282,7 @@ def run_mcp(checks: Checks, port: int) -> None:
 
 
 def run_code_mode(checks: Checks, app: Any) -> None:
-    print("Code mode")
+    print("CodeMode")
     runner = app.state.code_mode
     program = """
 plans = list_plans()

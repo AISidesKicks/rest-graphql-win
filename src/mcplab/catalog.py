@@ -4,7 +4,7 @@ The catalog is built from the live ``/openapi.json`` of the running app, so it
 can never drift away from the REST surface. The same catalog drives two things:
 
 - the native MCP tools the model calls one by one
-- the typed Python functions the code mode sandbox exposes
+- the typed Python functions the CodeMode sandbox exposes
 
 Because both come from one list, the token comparison in the savings chapter is
 honest.
@@ -45,7 +45,7 @@ class ToolSpec:
         return list(self.input_schema.get("properties", {}).keys())
 
     def signature(self) -> str:
-        """A Python style signature, used for the code mode stubs."""
+        """A Python style signature, used for the CodeMode stubs."""
         parts = []
         for name in self.arguments:
             if name in self.required:
@@ -55,7 +55,7 @@ class ToolSpec:
         return f"def {self.name}({', '.join(parts)}): ..."
 
     def stub(self) -> str:
-        """A ``.pyi`` stub for the code mode sandbox."""
+        """A ``.pyi`` stub for the CodeMode sandbox."""
         types = {
             "integer": "int",
             "number": "float",

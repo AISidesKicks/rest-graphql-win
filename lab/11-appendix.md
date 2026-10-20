@@ -84,7 +84,7 @@ pixi run savings -- --live
 ### A note on tool calling
 
 Not every model does tool calling the same way. The live native mode needs a model that
-supports the OpenAI `tools` parameter. If your model does not, the code mode run still
+supports the OpenAI `tools` parameter. If your model does not, the CodeMode run still
 works, because `exec` is a normal tool with one string argument.
 
 ## The environment variables
@@ -220,7 +220,7 @@ src/
   services/              every business rule, shared by both API styles
   api/rest/              the FastAPI routers, schemas and error handlers
   api/graphql/           the Strawberry types, queries, mutations, batch loader
-  mcplab/                the MCP catalog, the server, the code mode sandbox
+  mcplab/                the MCP catalog, the server, the CodeMode sandbox
   agent/                 the OpenAI compatible runner and the offline harness
   observability/         the OpenTelemetry setup and the JSONL exporter
 scripts/
@@ -240,7 +240,7 @@ pixi run etl       # build the star schema
 pixi run serve     # serve everything, --tls for HTTPS
 pixi run bench     # compare REST, GraphQL and the two engines
 pixi run tools     # the MCP catalog and the token cost
-pixi run savings   # native MCP versus code mode, --live for a real model
+pixi run savings   # native MCP versus CodeMode, --live for a real model
 pixi run verify    # the whole stack, end to end
 pixi run test      # pytest
 pixi run lint      # ruff

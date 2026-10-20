@@ -95,10 +95,10 @@ def build_social_card() -> None:
     card.paste(panel, (1200 - panel.width - 56, (630 - panel.height) // 2))
 
     draw = ImageDraw.Draw(card)
-    draw.text((72, 168), "REST vs GraphQL vs MCP", font=font(25), fill=ORANGE)
+    draw.text((72, 168), "MCP + CODEMODE", font=font(25), fill=ORANGE)
     draw.text((72, 210), "rest.graphql.win", font=font(62), fill=WHITE)
-    draw.text((72, 302), "REST, GraphQL, MCP", font=font(30), fill=WHITE)
-    draw.text((72, 344), "and code mode", font=font(30), fill=WHITE)
+    draw.text((72, 302), "MCP + CodeMode", font=font(30), fill=WHITE)
+    draw.text((72, 344), "on top of REST vs GraphQL", font=font(30), fill=WHITE)
     draw.text((72, 398), "one lab, one dataset, measured", font=font(23), fill=GREY)
     draw.text((72, 432), "SQLite for OLTP, DuckDB for OLAP", font=font(23), fill=GREY)
 

@@ -80,7 +80,7 @@ class ConflictError(DomainError):
 
 
 class SandboxError(DomainError):
-    """The code mode sandbox refused or failed to run the program."""
+    """The CodeMode sandbox refused or failed to run the program."""
 
     code = "SANDBOX_ERROR"
     status_code = 400

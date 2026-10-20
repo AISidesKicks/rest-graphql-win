@@ -11,7 +11,7 @@ An educational lab that compares API styles on real numbers instead of opinions:
 - **REST** and **GraphQL** over the same domain, backed by the same service layer
 - **SQLite** for the operational data and **DuckDB** for the analytical data
 - Both API styles wrapped in an **MCP server**
-- A **code mode sandbox** on top, so an agent can drive the same catalog with code
+- A **CodeMode sandbox** on top, so an agent can drive the same catalog with code
   instead of a growing pile of tool payloads
 - **OpenTelemetry** traces for every layer, so the claims can be checked
 
@@ -30,12 +30,12 @@ ticket messages, tags, agents, kb articles, invoices, invoice lines, payments, a
 | 6 | GraphQL writes get a deep dive | Where the two styles really differ: errors, concurrency, idempotency, atomicity |
 | 7 | ETL from SQLite to DuckDB | SQLite is the truth, the star schema is a projection of it |
 | 8 | Two data presets, `small` and `large` | Small for a fast demo, large to make the engine differences visible |
-| 9 | Monty is the code mode sandbox | Rust interpreter, Python subset, host functions as the only bridge |
+| 9 | Monty is the CodeMode sandbox | Rust interpreter, Python subset, host functions as the only bridge |
 | 10 | OpenTelemetry everywhere | The same trace proves where the time went |
 | 11 | OpenAI compatible agent runner plus an offline harness | The lab must work without an API key |
 | 12 | MCP Streamable HTTP mounted at `/mcp` | One process, one port, one URL |
 | 13 | MCP exposure switch | The token cost of a tool catalog is a core lesson, so it must be adjustable |
-| 14 | One typed Python function per catalog entry | The code mode surface is generated from the same catalog as the MCP tools |
+| 14 | One typed Python function per catalog entry | The CodeMode surface is generated from the same catalog as the MCP tools |
 | 15 | mkcert for local TLS | Some MCP clients refuse plain HTTP |
 | 16 | Landing page with a live snippet | The page should demonstrate, not describe |
 | 17 | pytest plus an end to end verify script | Two levels of checking, one for rules, one for the whole stack |
@@ -48,7 +48,7 @@ ticket messages, tags, agents, kb articles, invoices, invoice lines, payments, a
                          |  agent (OpenAI compatible)|
                          +-------------+-------------+
                                        |
-                     native MCP        |        code mode
+                     native MCP        |        CodeMode
                   (many tool calls)    |     (one exec call)
                                        v
 +------------------------------------------------------------------+

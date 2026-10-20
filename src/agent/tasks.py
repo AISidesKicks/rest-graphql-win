@@ -6,7 +6,7 @@ The task is the same one the whole lab uses:
     critical tickets?
 
 The native plan is what a model does with a wall of tools: one call per
-resource, every intermediate payload lands in the context. The code mode plan
+resource, every intermediate payload lands in the context. The CodeMode plan
 is one program that does the same work inside the sandbox and returns only the
 answer.
 

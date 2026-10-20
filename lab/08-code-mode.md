@@ -1,4 +1,4 @@
-# 08 Code mode
+# 08 CodeMode
 
 One tool for the model: `exec(code)`. The code runs in Monty, a Rust interpreter for a
 Python subset, with no filesystem, no network and no imports. The only way out is the
@@ -12,7 +12,7 @@ In native mode the model pays twice:
 2. once for every intermediate payload, because a tool result is text that goes into the
    context
 
-Code mode pays once for a small `exec` schema, and the intermediate payloads stay
+CodeMode pays once for a small `exec` schema, and the intermediate payloads stay
 inside the sandbox where the model never sees them. Chapter 09 has the numbers.
 
 ## The sandbox
@@ -116,7 +116,7 @@ Four host calls, one aggregation, and the model only ever sees the last three li
 
 ## Running it by hand
 
-The code mode runner is available on the app, so you can drive it without a model:
+The CodeMode runner is available on the app, so you can drive it without a model:
 
 ```bash
 pixi run python -c "
@@ -142,7 +142,7 @@ host calls 1
 
 ## Over MCP
 
-The `exec` tool is registered on the MCP server, so any MCP client can use code mode:
+The `exec` tool is registered on the MCP server, so any MCP client can use CodeMode:
 
 ```python
 result = await session.call_tool(
@@ -186,7 +186,7 @@ error: TimeoutError: feed time limit exceeded: 15.006919659s > 15s
 
 ## The traces
 
-A code mode run is one span with a child span per host call:
+A CodeMode run is one span with a child span per host call:
 
 ```
 codemode.exec  code_bytes=1146  tools=37  host_calls=4
@@ -207,7 +207,7 @@ That is the point, and also the trade: you see the calls, not the work.
 - it is not a magic bullet for a bad API design. If the API is hard to use, the program
   will be hard to write
 
-That last point matters. Code mode moves the difficulty, it does not remove it. A clean,
+That last point matters. CodeMode moves the difficulty, it does not remove it. A clean,
 well named API makes the generated program short. A messy API makes it long.
 
 Next: [09 Savings](09-savings.md)

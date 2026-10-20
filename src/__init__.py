@@ -1,1 +1,1 @@
-"""REST vs GraphQL vs MCP + code mode lab."""
+"""REST vs GraphQL vs MCP + CodeMode lab."""

@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>rest.graphql.win - MCP + Code Mode on top of REST vs GraphQL</title>
-<meta name="description" content="An open lab that measures REST, GraphQL, MCP and code mode on the same SaaS support and billing data, with SQLite for OLTP and DuckDB for OLAP.">
+<title>rest.graphql.win - MCP + CodeMode on top of REST vs GraphQL</title>
+<meta name="description" content="An open lab that measures REST, GraphQL, MCP and CodeMode on the same SaaS support and billing data, with SQLite for OLTP and DuckDB for OLAP.">
 <link rel="canonical" href="https://rest.graphql.win/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="rest.graphql.win">
 <meta property="og:title" content="MCP + CodeMode - REST vs GraphQL">
-<meta property="og:description" content="One lab, one dataset, measured. The same SaaS support and billing domain over REST, GraphQL, MCP and a code mode sandbox, with SQLite for OLTP and DuckDB for OLAP.">
+<meta property="og:description" content="One lab, one dataset, measured. The same SaaS support and billing domain over REST, GraphQL, MCP and a CodeMode sandbox, with SQLite for OLTP and DuckDB for OLAP.">
 <meta property="og:url" content="https://rest.graphql.win/">
 <meta property="og:image" content="https://rest.graphql.win/img/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="REST and GraphQL versus MCP and code mode, the comparison card of the lab">
+<meta property="og:image:alt" content="REST and GraphQL versus MCP and CodeMode, the comparison card of the lab">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="MCP + CodeMode - REST vs GraphQL">
-<meta name="twitter:description" content="One lab, one dataset, measured. REST, GraphQL, MCP and a code mode sandbox over the same SaaS data.">
+<meta name="twitter:description" content="One lab, one dataset, measured. REST, GraphQL, MCP and a CodeMode sandbox over the same SaaS data.">
 <meta name="twitter:image" content="https://rest.graphql.win/img/og.jpg">
 <meta name="theme-color" content="#14181f">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -455,20 +455,20 @@ pre .s { color: #8fd6a8; }
 <header class="hero" id="top">
   <div class="wrap">
     <h1>
-      <span class="hl-line"><span class="hl-emoji">🎓</span> <span class="hl-blue">MCP</span> + <span class="hl-orange">Code Mode</span></span>
+      <span class="hl-line"><span class="hl-emoji">🎓</span> <span class="hl-blue">MCP</span> + <span class="hl-orange">CodeMode</span></span>
       <span class="hl-line"><span class="hl-emoji">🧠</span> <span class="hl-blue">REST</span> vs <span class="hl-orange">GraphQL</span></span>
     </h1>
     <p class="lede">
       One lab, one dataset, one business question. We build the same SaaS support and billing
       domain twice - once as a REST API, once as a GraphQL API - then wrap both in an
-      <strong>MCP server</strong> and let an agent drive them through a <strong>code mode sandbox</strong>.
+      <strong>MCP server</strong> and let an agent drive them through a <strong>CodeMode sandbox</strong>.
       Every claim on this page is measured, not guessed.
     </p>
     <div class="pill-row">
       <span class="pill blue">FastAPI + SQLite (OLTP)</span>
       <span class="pill orange">Strawberry + DuckDB (OLAP)</span>
       <span class="pill teal">MCP over Streamable HTTP</span>
-      <span class="pill teal">Code mode in a Monty sandbox</span>
+      <span class="pill teal">CodeMode in a Monty sandbox</span>
       <span class="pill">OpenTelemetry traces</span>
     </div>
     <div class="btn-row">
@@ -484,13 +484,13 @@ pre .s { color: #8fd6a8; }
       <h2>The 2x2 matrix</h2>
       <p>
         Two API styles times two storage engines. The upper layer is the agent facing surface:
-        the same operations published as MCP tools, plus a code mode sandbox where the model
+        the same operations published as MCP tools, plus a CodeMode sandbox where the model
         writes Python instead of juggling tool payloads.
       </p>
     </div>
 
     <div class="card matrix-wrap">
-      <svg class="matrix" viewBox="0 0 900 520" role="img" aria-label="REST and GraphQL over SQLite and DuckDB, with an MCP and code mode layer on top">
+      <svg class="matrix" viewBox="0 0 900 520" role="img" aria-label="REST and GraphQL over SQLite and DuckDB, with an MCP and CodeMode layer on top">
         <defs>
           <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
             <path d="M0,0 L9,4.5 L0,9 z" fill="#14181f" />
@@ -498,7 +498,7 @@ pre .s { color: #8fd6a8; }
         </defs>
 
         <rect x="18" y="18" width="864" height="86" rx="18" fill="#c9e9f2" stroke="#2fbfa8" stroke-width="3" />
-        <text x="450" y="52" text-anchor="middle" class="layer-label">MCP server + code mode sandbox</text>
+        <text x="450" y="52" text-anchor="middle" class="layer-label">MCP server + CodeMode sandbox</text>
         <text x="450" y="76" text-anchor="middle" class="mono">tools/list  ·  tools/call  ·  exec(code)  ·  host functions  ·  per call spans</text>
         <text x="450" y="94" text-anchor="middle" class="mono">exposure switch: MCP_EXPOSURE=all | rest | graphql | curated</text>
 
@@ -676,10 +676,10 @@ GraphQL: one HTTP call, the server resolves the graph.
         <picture>
           <source srcset="img/mcp-with-codemode.webp" type="image/webp">
           <img src="img/mcp-with-codemode.jpg" width="1600" height="1195" loading="lazy" decoding="async"
-               alt="Comparison card of REST and GraphQL versus MCP and code mode, manual assembly versus agentic and automated">
+               alt="Comparison card of REST and GraphQL versus MCP and CodeMode, manual assembly versus agentic and automated">
         </picture>
         <figcaption>
-          <span class="cap-title">REST / GraphQL vs MCP + code mode</span>
+          <span class="cap-title">REST / GraphQL vs MCP + CodeMode</span>
           <span class="cap-sub">manual assembly versus agent driven</span>
           <ul>
             <li>One tool call per row versus one program</li>
@@ -722,13 +722,13 @@ GraphQL: one HTTP call, the server resolves the graph.
         <h4>3. Measure the differences</h4>
         <div class="shell"><span class="cmd">pixi run bench</span>    <span class="comment"># calls, round trips, ms, bytes</span>
 <span class="cmd">pixi run tools</span>    <span class="comment"># MCP catalog and token cost</span>
-<span class="cmd">pixi run savings</span>  <span class="comment"># native MCP versus code mode</span></div>
+<span class="cmd">pixi run savings</span>  <span class="comment"># native MCP versus CodeMode</span></div>
       </div>
 
       <div class="run-card orange">
         <h4>4. Check the whole thing</h4>
         <div class="shell"><span class="cmd">pixi run test</span>     <span class="comment"># pytest</span>
-<span class="cmd">pixi run verify</span>   <span class="comment"># REST + GraphQL + MCP + code mode</span></div>
+<span class="cmd">pixi run verify</span>   <span class="comment"># REST + GraphQL + MCP + CodeMode</span></div>
       </div>
     </div>
 
@@ -767,16 +767,16 @@ GraphQL: one HTTP call, the server resolves the graph.
         <div class="desc">The tool catalog, the exposure switch, schema token cost.</div>
       </a>
       <a class="chapter" href="https://github.com/AISidesKicks/rest-graphql-win/blob/main/lab/08-code-mode.md">
-        <div class="num">08</div><div class="title">Code mode</div>
+        <div class="num">08</div><div class="title">CodeMode</div>
         <div class="desc">The Monty sandbox, typed functions, a reference program.</div>
       </a>
       <a class="chapter" href="https://github.com/AISidesKicks/rest-graphql-win/blob/main/lab/09-savings.md">
         <div class="num">09</div><div class="title">Savings</div>
-        <div class="desc">Native MCP versus code mode, numbers you can reproduce.</div>
+        <div class="desc">Native MCP versus CodeMode, numbers you can reproduce.</div>
       </a>
       <a class="chapter" href="https://github.com/AISidesKicks/rest-graphql-win/blob/main/lab/10-observability.md">
         <div class="num">10</div><div class="title">Observability</div>
-        <div class="desc">Traces of a REST call, a GraphQL query and a code mode run.</div>
+        <div class="desc">Traces of a REST call, a GraphQL query and a CodeMode run.</div>
       </a>
       <a class="chapter" href="https://github.com/AISidesKicks/rest-graphql-win/blob/main/lab/11-appendix.md">
         <div class="num">11</div><div class="title">Appendix</div>
@@ -792,7 +792,7 @@ GraphQL: one HTTP call, the server resolves the graph.
         <li><strong>SQLite</strong> as the operational database, WAL mode</li>
         <li><strong>DuckDB</strong> as the analytical database, columnar</li>
         <li><strong>MCP Python SDK</strong> serving Streamable HTTP at /mcp</li>
-        <li><strong>Pydantic Monty</strong> as the code mode sandbox</li>
+        <li><strong>Pydantic Monty</strong> as the CodeMode sandbox</li>
         <li><strong>tiktoken</strong> to count what the model actually pays</li>
         <li><strong>OpenTelemetry</strong> with a JSONL exporter and OTLP</li>
         <li><strong>pixi</strong> holding the whole environment</li>
@@ -822,7 +822,7 @@ GraphQL: one HTTP call, the server resolves the graph.
       </div>
       <div class="credit">
         <b><a href="https://blog.cloudflare.com/code-mode-mcp/">Cloudflare</a></b>
-        <span>Code mode, one exec tool instead of a wall of tool schemas.</span>
+        <span>CodeMode, one exec tool instead of a wall of tool schemas.</span>
       </div>
       <div class="credit">
         <b><a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Anthropic</a></b>
@@ -834,7 +834,7 @@ GraphQL: one HTTP call, the server resolves the graph.
       </div>
       <div class="credit">
         <b><a href="https://pydantic.dev/articles/pydantic-monty">Pydantic Monty</a></b>
-        <span>The Python sandbox that runs the code mode programs.</span>
+        <span>The Python sandbox that runs the CodeMode programs.</span>
       </div>
       <div class="credit">
         <b><a href="https://strawberry.rocks/">Strawberry</a></b>

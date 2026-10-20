@@ -12,7 +12,7 @@ pixi run savings
 task: How much revenue is at risk from accounts with an overdue invoice and open critical tickets? Give me the top 10 accounts and the total amount in cents.
 mode: offline, rule based planner
 
-metric                     native MCP      code mode       change
+metric                     native MCP      CodeMode        change
 -----------------------------------------------------------------
 tool calls                        4.0            1.0       -75.0%
 round trips                       4.0            1.0       -75.0%
@@ -24,7 +24,7 @@ bytes moved                   232,207.0          298.0       -99.9%
 wall time ms                     64.0           46.6        -17.4%
 
 the full catalog is 37 tools, 3,766 tokens of schemas
-native MCP pays for all of them, code mode pays for one exec tool
+native MCP pays for all of them, CodeMode pays for one exec tool
 ```
 
 Read the numbers one at a time.
@@ -36,13 +36,13 @@ Read the numbers one at a time.
 In native mode the model carries the description and the argument schema of every tool
 in the catalog, on every turn. 37 tools, 3,766 tokens.
 
-In code mode the model carries the description of one tool, `exec`, plus the code mode
+In CodeMode the model carries the description of one tool, `exec`, plus the CodeMode
 instructions: 262 tokens.
 
 The rest of the catalog is still there, it just moved. The host functions inside the
 sandbox are free for the model, because the model never sees their schemas.
 
-This is the part people miss. Code mode does not shrink the API, it moves the API
+This is the part people miss. CodeMode does not shrink the API, it moves the API
 description out of the context window.
 
 ## Payload tokens
@@ -56,7 +56,7 @@ into the context. And then the model has to read it, hold it, and write code or 
 mentally to aggregate it. Every one of those tokens is paid for on every following turn
 too, because the context is resent.
 
-In code mode, the same four calls happen inside the sandbox. The model sees 92 tokens:
+In CodeMode, the same four calls happen inside the sandbox. The model sees 92 tokens:
 the answer.
 
 The data never leaves the sandbox. That is the whole trick.
@@ -65,15 +65,15 @@ The data never leaves the sandbox. That is the whole trick.
 
 **44 against 294, the other way around.**
 
-The native plan is short, four tool calls with short arguments. The code mode plan is
+The native plan is short, four tool calls with short arguments. The CodeMode plan is
 a program, and a program is longer than a tool call.
 
-This is the honest cost of code mode: the model has to write the aggregation logic
+This is the honest cost of CodeMode: the model has to write the aggregation logic
 itself. 294 tokens of output buys 92,823 tokens of payload savings. On any task with
 real aggregation, that is not a close call.
 
-It also means code mode wins less on tasks that need no aggregation. "Get me ticket 456"
-is one tool call in both modes, and code mode loses, because it paid for a program
+It also means CodeMode wins less on tasks that need no aggregation. "Get me ticket 456"
+is one tool call in both modes, and CodeMode loses, because it paid for a program
 instead of a call.
 
 ## The totals
@@ -92,10 +92,10 @@ pixi run savings
 The offline run replays the reference task with a rule based planner:
 
 - **native**: the four planned tool calls, every payload counted with tiktoken
-- **code mode**: the reference program, run in the real Monty sandbox, the output counted
+- **CodeMode**: the reference program, run in the real Monty sandbox, the output counted
 
 No API key, no network, same numbers every time. That matters for a lab: the claim
-"code mode is cheaper" should not depend on which model you happened to use.
+"CodeMode is cheaper" should not depend on which model you happened to use.
 
 The counting itself uses `tiktoken` with the `cl100k_base` encoding, the same encoding
 the OpenAI models use. If tiktoken cannot load its vocabulary, the counter falls back to
@@ -116,7 +116,7 @@ In live mode:
 
 - **native**: the MCP tool schemas are bridged into OpenAI tool definitions, the model
   calls them one at a time, every result goes back into the messages
-- **code mode**: the model gets the single `exec` tool, writes Python, the sandbox runs
+- **CodeMode**: the model gets the single `exec` tool, writes Python, the sandbox runs
   it, the output goes back into the messages
 
 The numbers are then real measurements of a real model, and they move around. The
@@ -130,13 +130,13 @@ native MCP steps:
   {"tool": "rest_list_tickets", "arguments": {"status": "open", "priority": "critical", "limit": 200}, "bytes": 67926}
   {"tool": "rest_list_accounts", "arguments": {"limit": 500}, "bytes": 106874}
   {"tool": "rest_list_plans", "arguments": {}, "bytes": 578}
-code mode steps:
+CodeMode steps:
   {"tool": "exec", "code_bytes": 1146, "host_calls": 4, "bytes": 298}
 ```
 
 Same four calls. 232,234 bytes versus 298 bytes.
 
-## When code mode is the wrong answer
+## When CodeMode is the wrong answer
 
 Honesty belongs in the chapter:
 
@@ -144,7 +144,7 @@ Honesty belongs in the chapter:
   broken program and burns a turn on it
 - **the code is an extra attack surface.** The sandbox is the mitigation, and it is a
   good one, but a tool that executes model written code deserves a proper review
-- **simple tasks do not need it.** One lookup, one tool call, code mode is overhead
+- **simple tasks do not need it.** One lookup, one tool call, CodeMode is overhead
 - **the API still has to be good.** A model cannot write a clean program against a
   confusing API
 
@@ -152,11 +152,11 @@ Honesty belongs in the chapter:
 
 | situation | pick |
 | --------- | ---- |
-| many rows, one answer | code mode |
+| many rows, one answer | CodeMode |
 | a handful of rows, the model needs to reason about each | native |
-| the tool catalog is large | code mode |
+| the tool catalog is large | CodeMode |
 | the task needs one tool call | native |
-| the payload is bigger than the answer | code mode |
+| the payload is bigger than the answer | CodeMode |
 | you cannot run a sandbox | native |
 
 Next: [10 Observability](10-observability.md)

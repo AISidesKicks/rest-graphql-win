@@ -5,7 +5,7 @@ Two modes, one task, one catalog:
 - **native**: the MCP tool schemas are bridged into OpenAI tool definitions,
   the model calls them one by one and every intermediate payload enters the
   context
-- **code mode**: the model gets a single ``exec`` tool and writes Python that
+- **CodeMode**: the model gets a single ``exec`` tool and writes Python that
   runs in the sandbox
 
 The runner speaks the OpenAI chat completions API, so any compatible endpoint
@@ -103,7 +103,7 @@ class ChatClient:
 
 
 class AgentRunner:
-    """Runs the reference task in native mode or in code mode."""
+    """Runs the reference task in native mode or in CodeMode."""
 
     def __init__(
         self,
@@ -299,7 +299,7 @@ class AgentRunner:
         return result
 
     def run_code_mode_offline(self, task: str = REFERENCE_TASK) -> AgentResult:
-        """Replay the code mode plan, one program inside the sandbox."""
+        """Replay the CodeMode plan, one program inside the sandbox."""
         result = AgentResult(mode="code_mode", task=task)
         definitions = self.exec_tool_definition()
         result.schema_tokens = count_tokens(definitions)

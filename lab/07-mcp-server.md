@@ -192,4 +192,4 @@ would send.
 - **no resources and no prompts.** only tools, the lab is about tool payloads
 - **no sampling, no elicitation.** the server does not call the model back
 
-Next: [08 Code mode](08-code-mode.md)
+Next: [08 CodeMode](08-code-mode.md)
