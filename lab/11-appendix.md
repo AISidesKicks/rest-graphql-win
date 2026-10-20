@@ -1,0 +1,232 @@
+# 11 Appendix
+
+## TLS for picky clients
+
+Some MCP clients refuse plain HTTP. The lab can serve HTTPS with a locally trusted
+certificate:
+
+```bash
+pixi run serve -- --tls
+```
+
+```
+lab is starting on https://127.0.0.1:8443
+  REST      https://127.0.0.1:8443/api
+  GraphiQL  https://127.0.0.1:8443/graphql
+  MCP       https://127.0.0.1:8443/mcp
+```
+
+### With mkcert
+
+If [mkcert](https://github.com/FiloSottile/mkcert) is on your PATH, the serve script uses
+it:
+
+```bash
+# install it, then
+mkcert -install
+pixi run serve -- --tls
+```
+
+The certificate and the key land in `certs/`, which is gitignored. `mkcert -install`
+asks for your password once, it puts the local CA into your system trust store, and from
+then on the browser and the clients trust `https://127.0.0.1:8443` without a warning.
+
+### Without mkcert
+
+If mkcert is missing, the script falls back to an openssl self signed certificate and
+says so:
+
+```
+mkcert is not installed, falling back to an openssl self signed certificate.
+The browser will warn you, that is expected. Install mkcert for a trusted
+certificate: https://github.com/FiloSottile/mkcert
+```
+
+The certificate works, the clients just have to be told to skip the verification. For a
+local lab that is fine.
+
+### Installing mkcert
+
+```bash
+# macOS
+brew install mkcert
+
+# Linux, with the binary from the releases page
+sudo apt install libnss3-tools
+wget -nc https://dl.filippo.io/mkcert/latest?for=linux/amd64 -O /tmp/mkcert
+chmod +x /tmp/mkcert
+sudo mv /tmp/mkcert /usr/local/bin/mkcert
+mkcert -install
+```
+
+## OpenAI compatible endpoints
+
+The live savings run speaks the OpenAI chat completions API, so anything that implements
+it works.
+
+```bash
+export LLM_BASE_URL=http://127.0.0.1:11434/v1
+export LLM_MODEL=qwen2.5-coder
+export LLM_API_KEY=ollama
+pixi run savings -- --live
+```
+
+| provider | `LLM_BASE_URL` |
+| -------- | --------------- |
+| Ollama | `http://127.0.0.1:11434/v1` |
+| vLLM | `http://127.0.0.1:8000/v1` |
+| LM Studio | `http://127.0.0.1:1234/v1` |
+| OpenRouter | `https://openrouter.ai/api/v1` |
+| OpenAI | `https://api.openai.com/v1` |
+
+`LLM_API_KEY` is optional for the local ones.
+
+### A note on tool calling
+
+Not every model does tool calling the same way. The live native mode needs a model that
+supports the OpenAI `tools` parameter. If your model does not, the code mode run still
+works, because `exec` is a normal tool with one string argument.
+
+## The environment variables
+
+| variable | default | what it does |
+| -------- | ------- | ------------ |
+| `LAB_HOST` | `127.0.0.1` | the bind address |
+| `LAB_PORT` | `8000` | the port, the TLS path uses `8443` |
+| `LAB_SCALE` | `small` | the seed preset |
+| `LAB_SEED` | `20240701` | the random seed |
+| `LAB_NOW` | `2026-06-30T12:00:00Z` | the moment the lab treats as now |
+| `LAB_DEV` | `true` | permissive CORS, needed by the landing page |
+| `LAB_TRACING` | `true` | write the spans |
+| `MCP_EXPOSURE` | `all` | `all`, `rest`, `graphql`, `curated` or a comma separated mix |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | unset | ship the spans to an OTLP backend |
+| `LLM_BASE_URL` | unset | the OpenAI compatible endpoint |
+| `LLM_API_KEY` | unset | the key for that endpoint |
+| `LLM_MODEL` | unset | the model to use |
+| `CODE_MODE_TIMEOUT_S` | `15` | the sandbox wall clock limit |
+| `CODE_MODE_MAX_HOST_CALLS` | `200` | the sandbox call limit |
+| `CODE_MODE_MAX_OUTPUT_BYTES` | `64000` | the sandbox output cap |
+
+## The landing page
+
+The public page is <https://rest.graphql.win>, the source is
+[`docs/index.html`](../docs/index.html).
+
+Its try it panel calls `http://127.0.0.1:8000` from the browser. That works because
+browsers treat `127.0.0.1` as a potentially trustworthy origin, and the app sends
+permissive CORS headers in dev mode. When the lab is not running, the panel shows the
+recorded output instead, so the page still demonstrates something.
+
+## Phoenix, for the traces
+
+```bash
+docker run -p 4317:4317 -p 6006:6006 arizephoenix/phoenix:latest
+OTEL_EXPORTER_OTLP_ENDPOINT=http://127.0.0.1:4317 pixi run serve
+```
+
+Then <http://127.0.0.1:6006>. The lab does not ship a docker compose file on purpose, the
+export path is the part worth reusing.
+
+## Troubleshooting
+
+### The app starts but the analytics endpoints fail
+
+```
+the analytical database is missing, run 'pixi run etl' first
+```
+
+The DuckDB file is built by the ETL, not by the seed. Run:
+
+```bash
+pixi run etl
+```
+
+### The GraphQL query returns errors instead of data
+
+Look at the `errors` array, not the status code. GraphQL answers with `200` even when
+the query failed:
+
+```bash
+curl -s -X POST 'http://127.0.0.1:8000/graphql' -H 'Content-Type: application/json' \
+  -d '{"query": "{ account(id: 1) { id } }"}' | jq '.errors'
+```
+
+### A mutation says VERSION_CONFLICT
+
+Somebody wrote to the entity after you read it. Read it again and use the new version:
+
+```bash
+curl -s 'http://127.0.0.1:8000/api/tickets/456' | jq '.version'
+```
+
+### A mutation says IDEMPOTENCY_MISMATCH
+
+The key was used before with a different payload. Use a new key, or send the same
+payload again.
+
+### The MCP handshake fails with a redirect
+
+The MCP endpoint is at `/mcp` and it speaks Streamable HTTP. A `307` usually means
+something else is mounted on that path, for example a reverse proxy in front of the lab.
+
+### The sandbox says "no module named"
+
+That is the sandbox working. Monty has no imports by design, the only way out is the
+host functions.
+
+### The sandbox says "feed time limit exceeded"
+
+The program ran longer than `CODE_MODE_TIMEOUT_S`. Either the program has a loop, or it
+makes too many host calls.
+
+### The seed is slow
+
+The small preset is the default and takes about half a second. The large preset takes
+longer, on purpose, so the engine differences show up.
+
+```bash
+pixi run seed -- --scale large
+```
+
+### Port 8000 is taken
+
+```bash
+pixi run serve -- --port 8010
+```
+
+## Where the pieces live
+
+```
+src/
+  app.py                 the single ASGI app
+  config.py              the settings and the exposure switch
+  domain/                the entities, the errors, the cursors, the clock
+  data/                  SQLite, DuckDB, the seed, the ETL
+  services/              every business rule, shared by both API styles
+  api/rest/              the FastAPI routers, schemas and error handlers
+  api/graphql/           the Strawberry types, queries, mutations, batch loader
+  mcplab/                the MCP catalog, the server, the code mode sandbox
+  agent/                 the OpenAI compatible runner and the offline harness
+  observability/         the OpenTelemetry setup and the JSONL exporter
+scripts/
+  seed.py  etl.py  serve.py  bench.py  dump_tools.py  savings.py  verify.py
+tests/
+  test_sqlite_repo.py  test_mutations.py  test_catalog.py  test_codemode.py
+```
+
+The MCP package is called `mcplab` and not `mcp`, because the name `mcp` belongs to the
+MCP Python SDK and the project root is on the import path.
+
+## The full command list
+
+```bash
+pixi run seed      # generate the dataset
+pixi run etl       # build the star schema
+pixi run serve     # serve everything, --tls for HTTPS
+pixi run bench     # compare REST, GraphQL and the two engines
+pixi run tools     # the MCP catalog and the token cost
+pixi run savings   # native MCP versus code mode, --live for a real model
+pixi run verify    # the whole stack, end to end
+pixi run test      # pytest
+pixi run lint      # ruff
+```

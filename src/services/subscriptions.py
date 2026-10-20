@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sqlite3
 from collections.abc import Callable
 from typing import Any
 
@@ -166,17 +167,25 @@ class SubscriptionsService:
                     invoice_number = f"CHG-{stamp[:10].replace('-', '')}-{subscription_id}"
                     subtotal = max(delta_cents, 0)
                     tax = int(subtotal * 0.19)
-                    invoice_id = self.repo.insert_invoice(
-                        account_id=account.id,
-                        subscription_id=subscription_id,
-                        number=invoice_number,
-                        status="open",
-                        issued_at=stamp,
-                        due_at=stamp,
-                        subtotal_cents=subtotal,
-                        tax_cents=tax,
-                        total_cents=subtotal + tax,
-                    )
+                    try:
+                        invoice_id = self.repo.insert_invoice(
+                            account_id=account.id,
+                            subscription_id=subscription_id,
+                            number=invoice_number,
+                            status="open",
+                            issued_at=stamp,
+                            due_at=stamp,
+                            subtotal_cents=subtotal,
+                            tax_cents=tax,
+                            total_cents=subtotal + tax,
+                        )
+                    except sqlite3.IntegrityError as exc:
+                        raise RuleViolationError(
+                            f"a plan change invoice for subscription {subscription_id} "
+                            f"and {stamp[:10]} already exists",
+                            subscription_id=subscription_id,
+                            invoice_number=invoice_number,
+                        ) from exc
                     self._hook(fail_hook, "invoice")
                     self.repo.insert_invoice_line(
                         invoice_id=invoice_id,

@@ -553,11 +553,13 @@ curl <span class="s">'http://127.0.0.1:8000/api/accounts/42'</span></pre>
         <h4>GraphQL <small>1 round trip</small></h4>
 <pre><span class="k">query</span> RevenueAtRisk {
   <span class="k">accounts</span>(status: <span class="s">PAST_DUE</span>, limit: <span class="s">50</span>) {
-    id
-    name
-    invoices(status: <span class="s">OVERDUE</span>) { totalCents dueAt }
-    tickets(status: <span class="s">OPEN</span>, priority: <span class="s">CRITICAL</span>) {
-      id subject priority
+    <span class="k">items</span> {
+      id
+      name
+      invoices(status: <span class="s">OVERDUE</span>) { totalCents dueAt }
+      tickets(status: <span class="s">OPEN</span>, priority: <span class="s">CRITICAL</span>) {
+        id subject priority
+      }
     }
   }
 }</pre>
@@ -938,7 +940,7 @@ GraphQL: one HTTP call, the server resolves the graph.
   }
 
   function gqlCall() {
-    var query = 'query RevenueAtRisk { accounts(status: PAST_DUE, limit: 3) { id name status invoices(status: OVERDUE) { totalCents dueAt } tickets(status: OPEN, priority: CRITICAL) { id subject priority } } }';
+    var query = 'query RevenueAtRisk { accounts(status: PAST_DUE, limit: 3) { items { id name status invoices(status: OVERDUE) { totalCents dueAt } tickets(status: OPEN, priority: CRITICAL) { id subject priority } } } }';
     return timedFetch(BASE + '/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
