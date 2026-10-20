@@ -2,6 +2,12 @@
 .pixi/*
 !.pixi/config.toml
 
+# python bytecode
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
 # generated lab artifacts
 data/
 scratch/*
