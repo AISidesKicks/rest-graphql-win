@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Database">
+  <rect width="64" height="64" rx="14" fill="#14181f"/>
+  <path d="M14 20v28a18 7 0 0 0 36 0V20z" fill="#1f6ba4"/>
+  <ellipse cx="32" cy="20" rx="18" ry="7" fill="#2fbfa8"/>
+  <path d="M14 34a18 7 0 0 0 36 0v7a18 7 0 0 1-36 0z" fill="#2e86c1"/>
+</svg>
