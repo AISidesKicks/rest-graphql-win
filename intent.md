@@ -106,6 +106,9 @@ wire shapes. That contrast is the point of the whole lab.
   completions, and the offline harness keeps the lab usable without a key.
 - **The large preset is slow to seed.** Small is the default, `--scale large` is opt in,
   and the seeding script prints per table timings.
+- **Our own package cannot be called `mcp`.** The MCP Python SDK owns that name and the
+  project root is on the import path, so the lab package is `mcplab` and the SDK stays
+  `mcp`.
 
 ## 6. Out of scope
 

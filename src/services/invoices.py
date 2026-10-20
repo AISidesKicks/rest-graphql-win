@@ -84,7 +84,7 @@ class InvoicesService:
                     )
                     if paid_so_far + amount_cents > invoice.total_cents:
                         raise RuleViolationError(
-                            f"invoice {invoice_id} has {invoice.total_cents} cents left, "
+                            f"invoice {invoice_id} has {invoice.total_cents - paid_so_far} cents left, "
                             f"{amount_cents} cents were requested",
                             invoice_id=invoice_id,
                             total_cents=invoice.total_cents,

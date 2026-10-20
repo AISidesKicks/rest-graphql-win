@@ -60,7 +60,7 @@ class ToolRunner:
             spec.method or "GET",
             path,
             params=query or None,
-            json=body or None,
+            json=body if spec.has_body else None,
             headers=headers or None,
         )
         return _decode(response)

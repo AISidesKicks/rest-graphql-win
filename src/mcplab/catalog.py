@@ -34,6 +34,7 @@ class ToolSpec:
     kind: str = "rest"
     method: str | None = None
     path: str | None = None
+    has_body: bool = False
     param_locations: dict[str, str] = field(default_factory=dict)
     header_names: dict[str, str] = field(default_factory=dict)
     original_names: dict[str, str] = field(default_factory=dict)
@@ -146,6 +147,7 @@ def build_rest_tools(openapi: dict[str, Any]) -> list[ToolSpec]:
                 .get("application/json", {})
                 .get("schema")
             )
+            has_body = body_schema is not None
             if body_schema:
                 body_schema = deref(openapi, body_schema)
                 for name, schema in (body_schema.get("properties") or {}).items():
@@ -173,6 +175,7 @@ def build_rest_tools(openapi: dict[str, Any]) -> list[ToolSpec]:
                     kind="rest",
                     method=method.upper(),
                     path=path,
+                    has_body=has_body,
                     param_locations=locations,
                     header_names=headers,
                     original_names=originals,
