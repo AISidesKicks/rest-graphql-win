@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>rest.graphql.win - REST vs GraphQL vs MCP + Code Mode lab</title>
 <meta name="description" content="An open lab that measures REST, GraphQL, MCP and code mode on the same SaaS support and billing data, with SQLite for OLTP and DuckDB for OLAP.">
+<link rel="canonical" href="https://rest.graphql.win/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="rest.graphql.win">
+<meta property="og:title" content="REST vs GraphQL vs MCP + Code Mode">
+<meta property="og:description" content="One lab, one dataset, measured. The same SaaS support and billing domain over REST, GraphQL, MCP and a code mode sandbox, with SQLite for OLTP and DuckDB for OLAP.">
+<meta property="og:url" content="https://rest.graphql.win/">
+<meta property="og:image" content="https://rest.graphql.win/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="REST and GraphQL versus MCP and code mode, the comparison card of the lab">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="REST vs GraphQL vs MCP + Code Mode">
+<meta name="twitter:description" content="One lab, one dataset, measured. REST, GraphQL, MCP and a code mode sandbox over the same SaaS data.">
+<meta name="twitter:image" content="https://rest.graphql.win/img/og.jpg">
+<meta name="theme-color" content="#14181f">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -154,56 +169,15 @@ a { color: var(--blue-deep); }
 
 /* Comparison panel cards */
 
-.panels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+.img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 26px; align-items: start; }
 
-.panel {
-  background: var(--panel);
-  border-radius: var(--radius);
-  border: 3px solid var(--blue-line);
-  box-shadow: 0 10px 0 rgba(20, 24, 31, .07);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.panel.orange { border-color: var(--orange-line); }
-
-.panel-head {
-  background: var(--blue);
-  color: #fff;
-  padding: 18px 22px 16px;
-  border-bottom: 5px solid var(--teal);
-}
-.panel.orange .panel-head { background: var(--orange); border-bottom-color: var(--orange-line); }
-
-.panel-head h3 { margin: 0; font-size: 1.65rem; line-height: 1.15; }
-.panel-head p { margin: 6px 0 0; font-size: .95rem; opacity: .95; font-weight: 600; }
-
-.panel-body { padding: 18px 22px 20px; background: var(--blue-soft); flex: 1; }
-.panel.orange .panel-body { background: var(--orange-soft); }
-
-.panel-body ul { margin: 0; padding-left: 20px; }
-.panel-body li { margin-bottom: 9px; font-size: .97rem; }
-.panel-body li strong { font-weight: 800; }
-
-.panel-band {
-  background: var(--band-blue);
-  padding: 12px 22px;
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.panel.orange .panel-band { background: var(--band-orange); }
-
-.panel-foot {
-  padding: 12px 22px 16px;
-  font-size: .88rem;
-  color: var(--ink-soft);
-  background: var(--panel);
-  border-top: 2px solid rgba(20, 24, 31, .07);
-}
+.img-card { background: var(--panel); border: 3px solid rgba(20, 24, 31, .1); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 0 rgba(20, 24, 31, .06); }
+.img-card img { width: 100%; height: auto; display: block; background: var(--paper); }
+.img-card figcaption { padding: 16px 22px 18px; font-size: .95rem; color: var(--ink-soft); }
+.img-card figcaption strong { color: var(--ink); font-family: var(--display); font-weight: 600; }
+.img-card figcaption ul { margin: 10px 0 12px; padding-left: 18px; }
+.img-card figcaption li { margin-bottom: 4px; }
+.img-card figcaption .cap-note { margin: 0; font-size: .88rem; }
 
 /* Sections */
 
@@ -224,6 +198,9 @@ section { padding: 52px 0; }
 /* Matrix diagram */
 
 .matrix-wrap { overflow-x: auto; padding: 6px; }
+
+.scroll-hint { display: none; margin: 10px 0 0; font-size: .85rem; font-weight: 700; color: var(--ink-soft); }
+@media (max-width: 880px) { .scroll-hint { display: block; } }
 
 .matrix { width: 100%; min-width: 720px; height: auto; display: block; font-family: var(--body); }
 
@@ -324,15 +301,6 @@ pre .s { color: #8fd6a8; }
 }
 .tab[aria-selected="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
 
-/* Image panels */
-
-.img-grid { display: grid; gap: 34px; }
-
-.img-card { background: var(--panel); border: 3px solid rgba(20, 24, 31, .1); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 0 rgba(20, 24, 31, .06); }
-.img-card img { width: 100%; display: block; background: var(--paper); }
-.img-card figcaption { padding: 16px 22px 18px; font-size: .96rem; color: var(--ink-soft); }
-.img-card figcaption strong { color: var(--ink); }
-
 /* Lab chapters */
 
 .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
@@ -373,6 +341,7 @@ pre .s { color: #8fd6a8; }
   font-size: .8rem;
   line-height: 1.7;
   overflow-x: auto;
+  white-space: pre-wrap;
 }
 .shell .cmd { color: #8fd6a8; }
 .shell .comment { color: #7f9cc0; }
@@ -402,14 +371,14 @@ pre .s { color: #8fd6a8; }
 .footer-line a { color: #7fd6c6; }
 
 @media (max-width: 880px) {
-  .panels, .snippet-grid { grid-template-columns: 1fr; }
+  .snippet-grid { grid-template-columns: 1fr; }
   .stack-list { columns: 1; }
   .topnav { margin-left: 0; width: 100%; }
 }
 
 @media (max-width: 560px) {
-  .panel-head h3 { font-size: 1.35rem; }
   .hero { padding-top: 34px; }
+  .img-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -492,7 +461,7 @@ pre .s { color: #8fd6a8; }
         <text x="60" y="240" class="cell-sub">multi endpoint, resource shaped</text>
         <text x="60" y="268" class="mono">GET /api/accounts?status=past_due</text>
         <text x="60" y="288" class="mono">GET /api/tickets?account_id=42</text>
-        <text x="60" y="306" class="mono">PATCH /api/tickets/7  (If-Match, Idempotency-Key)</text>
+        <text x="60" y="306" class="mono">PATCH /api/tickets/7 (If-Match)</text>
 
         <rect x="470" y="186" width="380" height="130" rx="16" fill="#2e86c1" stroke="#2fbfa8" stroke-width="3" />
         <text x="490" y="218" class="cell-title">REST</text>
@@ -504,20 +473,21 @@ pre .s { color: #8fd6a8; }
         <rect x="40" y="336" width="380" height="130" rx="16" fill="#f2803c" stroke="#f6c3a0" stroke-width="3" />
         <text x="60" y="368" class="cell-title">GraphQL</text>
         <text x="60" y="390" class="cell-sub">single endpoint, field shaped</text>
-        <text x="60" y="418" class="mono">query { accounts(status: PAST_DUE) { id name } }</text>
-        <text x="60" y="438" class="mono">mutation { updateTicket(id: 7, expectedVersion: 3) }</text>
+        <text x="60" y="418" class="mono">query { accounts(status: PAST_DUE) { id } }</text>
+        <text x="60" y="438" class="mono">mutation { updateTicket(id: 7, version: 3) }</text>
         <text x="60" y="456" class="mono">errors[] with extensions.code, HTTP 200</text>
 
         <rect x="470" y="336" width="380" height="130" rx="16" fill="#f2803c" stroke="#f6c3a0" stroke-width="3" />
         <text x="490" y="368" class="cell-title">GraphQL</text>
         <text x="490" y="390" class="cell-sub">same style, analytical payloads</text>
-        <text x="490" y="418" class="mono">analytics { revenueByPlan(from, to) { planCode revenueCents } }</text>
-        <text x="490" y="438" class="mono">analytics { ticketsAtRisk { accountId overdueCents } }</text>
+        <text x="490" y="418" class="mono">analytics { revenueByPlan(from, to) }</text>
+        <text x="490" y="438" class="mono">analytics { ticketsAtRisk { accountId } }</text>
         <text x="490" y="456" class="mono">analytics { runSql(sql: "select ...") }</text>
 
         <text x="450" y="500" text-anchor="middle" class="mono">one shared service layer underneath, so every measured difference comes from the API style</text>
       </svg>
     </div>
+    <p class="scroll-hint">Scroll the diagram sideways to see the whole matrix.</p>
   </div>
 </section>
 
@@ -573,20 +543,20 @@ curl <span class="s">'http://127.0.0.1:8000/api/accounts/42'</span></pre>
         <span class="status" id="run-status">not connected yet</span>
       </div>
       <div class="tryit-body">
-        <div class="tabs" role="tablist">
-          <button class="tab" role="tab" aria-selected="true" data-target="rest-out">REST output</button>
-          <button class="tab" role="tab" aria-selected="false" data-target="gql-out">GraphQL output</button>
-          <button class="tab" role="tab" aria-selected="false" data-target="notes">What to look at</button>
+        <div class="tabs" role="tablist" aria-label="The query and its output">
+          <button class="tab" role="tab" id="tab-rest" aria-controls="rest-out" aria-selected="true" data-target="rest-out">REST output</button>
+          <button class="tab" role="tab" id="tab-gql" aria-controls="gql-out" aria-selected="false" data-target="gql-out" tabindex="-1">GraphQL output</button>
+          <button class="tab" role="tab" id="tab-notes" aria-controls="notes" aria-selected="false" data-target="notes" tabindex="-1">What to look at</button>
         </div>
 
-        <pre class="output" id="rest-out">Press "Run the query". The page calls http://127.0.0.1:8000 in your browser.
+        <pre class="output" id="rest-out" role="tabpanel" aria-labelledby="tab-rest" tabindex="0">Press "Run the query". The page calls http://127.0.0.1:8000 in your browser.
 If the lab is not running you get the recorded output from the seeded dataset instead.</pre>
 
-        <pre class="output" id="gql-out" hidden>Press "Run the query". The page posts a GraphQL document to
+        <pre class="output" id="gql-out" role="tabpanel" aria-labelledby="tab-gql" tabindex="0" hidden>Press "Run the query". The page posts a GraphQL document to
 http://127.0.0.1:8000/graphql in your browser.
 If the lab is not running you get the recorded output from the seeded dataset instead.</pre>
 
-        <pre class="output" id="notes" hidden>REST: one HTTP call per resource, the client stitches the graph together.
+        <pre class="output" id="notes" role="tabpanel" aria-labelledby="tab-notes" tabindex="0" hidden>REST: one HTTP call per resource, the client stitches the graph together.
   - round trips add up, and the N+1 trap waits for every account
   - caches work per URL, which is simple and predictable
   - errors are HTTP status codes, so the client branch is explicit
@@ -610,73 +580,55 @@ GraphQL: one HTTP call, the server resolves the graph.
       </p>
     </div>
 
-    <div class="panels">
-      <article class="panel">
-        <div class="panel-head">
-          <h3>REST vs GraphQL</h3>
-          <p>(Reading &amp; updating data)</p>
-        </div>
-        <div class="panel-body">
-          <ul>
-            <li><strong>Architecture:</strong> many endpoints versus one endpoint</li>
-            <li><strong>Reading:</strong> fixed payloads versus exactly the fields you ask for</li>
-            <li><strong>Updating:</strong> dedicated URLs versus one mutation with selected fields</li>
-            <li><strong>Efficiency:</strong> several requests versus one request</li>
-            <li><strong>Implementation:</strong> plain HTTP versus a schema on both sides</li>
-          </ul>
-        </div>
-        <div class="panel-band">Multi-Endpoint vs Single Endpoint</div>
-        <div class="panel-foot">
-          The lab proves where the single endpoint really pays: read paths with nested data.
-          Write paths are where the two styles drift apart, see the mutation deep dive.
-        </div>
-      </article>
-
-      <article class="panel orange">
-        <div class="panel-head">
-          <h3>OLTP vs OLAP</h3>
-          <p>(Online Transactional vs Online Analytical Processing)</p>
-        </div>
-        <div class="panel-body">
-          <ul>
-            <li><strong>Purpose:</strong> run the business versus explain the business</li>
-            <li><strong>Data type:</strong> live rows versus consolidated columns</li>
-            <li><strong>Operations:</strong> write heavy versus read heavy</li>
-            <li><strong>Speed:</strong> milliseconds versus seconds, but the right engine wins both</li>
-            <li><strong>Engines:</strong> SQLite and DuckDB, side by side on the same question</li>
-          </ul>
-        </div>
-        <div class="panel-band">Fast &amp; Frequent vs Deep &amp; Complex</div>
-        <div class="panel-foot">
-          SQLite is the source of truth, an ETL step materialises the star schema into DuckDB.
-          Same question, two engines, two very different plans.
-        </div>
-      </article>
-    </div>
-
-    <div class="img-grid" style="margin-top: 34px">
+    <div class="img-grid">
       <figure class="img-card">
-        <img src="RESTvsGRAPQL.jpeg" alt="Comparison card of REST versus GraphQL, multi endpoint versus single endpoint" loading="lazy">
+        <picture>
+          <source srcset="img/rest-vs-graphql.webp" type="image/webp">
+          <img src="img/rest-vs-graphql.jpg" width="1600" height="1195" loading="lazy" decoding="async"
+               alt="Comparison card of REST versus GraphQL, multi endpoint versus single endpoint">
+        </picture>
         <figcaption>
-          <strong>REST vs GraphQL.</strong> The lab walks through round trips, the N+1 trap,
-          error shapes, caching and versioning on one shared service layer.
+          <strong>REST vs GraphQL</strong> (reading and updating data)
+          <ul>
+            <li>Many endpoints versus one endpoint</li>
+            <li>Fixed payloads versus exactly the fields you ask for</li>
+            <li>Dedicated URLs versus one mutation with selected fields</li>
+          </ul>
+          <p class="cap-note">The lab measures round trips, the N+1 trap, error shapes, caching and versioning.</p>
         </figcaption>
       </figure>
 
       <figure class="img-card">
-        <img src="OLTPvsOLAP.jpeg" alt="Comparison card of OLTP versus OLAP, fast and frequent versus deep and complex" loading="lazy">
+        <picture>
+          <source srcset="img/oltp-vs-olap.webp" type="image/webp">
+          <img src="img/oltp-vs-olap.jpg" width="1600" height="1195" loading="lazy" decoding="async"
+               alt="Comparison card of OLTP versus OLAP, fast and frequent versus deep and complex">
+        </picture>
         <figcaption>
-          <strong>OLTP vs OLAP.</strong> SQLite holds the operational truth, DuckDB answers the
-          analytical questions in one columnar scan.
+          <strong>OLTP vs OLAP</strong> (running the business versus explaining it)
+          <ul>
+            <li>Live rows versus consolidated columns</li>
+            <li>Write heavy versus read heavy</li>
+            <li>SQLite and DuckDB, side by side on the same question</li>
+          </ul>
+          <p class="cap-note">SQLite holds the operational truth, an ETL materialises the star schema into DuckDB.</p>
         </figcaption>
       </figure>
 
       <figure class="img-card">
-        <img src="MCPwithCODEMODE.jpeg" alt="Comparison card of REST and GraphQL versus MCP and code mode, manual assembly versus agentic and automated" loading="lazy">
+        <picture>
+          <source srcset="img/mcp-with-codemode.webp" type="image/webp">
+          <img src="img/mcp-with-codemode.jpg" width="1600" height="1195" loading="lazy" decoding="async"
+               alt="Comparison card of REST and GraphQL versus MCP and code mode, manual assembly versus agentic and automated">
+        </picture>
         <figcaption>
-          <strong>REST / GraphQL vs MCP + code mode.</strong> Manual assembly versus agent driven:
-          the same catalog of tools, but the model pays for the schemas once and the payloads never
-          enter the context.
+          <strong>REST / GraphQL vs MCP + code mode</strong> (manual assembly versus agent driven)
+          <ul>
+            <li>One tool call per row versus one program</li>
+            <li>Every payload enters the context versus none of them</li>
+            <li>The same catalog of operations underneath</li>
+          </ul>
+          <p class="cap-note">The model pays for the tool schemas once, the intermediate payloads never enter the context.</p>
         </figcaption>
       </figure>
     </div>
@@ -696,37 +648,29 @@ GraphQL: one HTTP call, the server resolves the graph.
     <div class="run-grid">
       <div class="run-card">
         <h4>1. Seed and build the star schema</h4>
-        <div class="shell">
-<span class="cmd">pixi run seed</span>   <span class="comment"># small preset, deterministic</span>
+        <div class="shell"><span class="cmd">pixi run seed</span>   <span class="comment"># small preset, deterministic</span>
 <span class="cmd">pixi run etl</span>    <span class="comment"># SQLite to DuckDB</span>
-<span class="cmd">pixi run seed -- --scale large</span>
-        </div>
+<span class="cmd">pixi run seed -- --scale large</span></div>
       </div>
 
       <div class="run-card orange">
         <h4>2. Serve REST, GraphQL and MCP</h4>
-        <div class="shell">
-<span class="cmd">pixi run serve</span>       <span class="comment"># http://127.0.0.1:8000</span>
+        <div class="shell"><span class="cmd">pixi run serve</span>       <span class="comment"># http://127.0.0.1:8000</span>
 <span class="cmd">pixi run serve -- --tls</span> <span class="comment"># https://127.0.0.1:8443, mkcert</span>
-<span class="comment"># GraphiQL lives at /graphql</span>
-        </div>
+<span class="comment"># GraphiQL lives at /graphql</span></div>
       </div>
 
       <div class="run-card">
         <h4>3. Measure the differences</h4>
-        <div class="shell">
-<span class="cmd">pixi run bench</span>    <span class="comment"># calls, round trips, ms, bytes</span>
+        <div class="shell"><span class="cmd">pixi run bench</span>    <span class="comment"># calls, round trips, ms, bytes</span>
 <span class="cmd">pixi run tools</span>    <span class="comment"># MCP catalog and token cost</span>
-<span class="cmd">pixi run savings</span>  <span class="comment"># native MCP versus code mode</span>
-        </div>
+<span class="cmd">pixi run savings</span>  <span class="comment"># native MCP versus code mode</span></div>
       </div>
 
       <div class="run-card orange">
         <h4>4. Check the whole thing</h4>
-        <div class="shell">
-<span class="cmd">pixi run test</span>     <span class="comment"># pytest</span>
-<span class="cmd">pixi run verify</span>   <span class="comment"># REST + GraphQL + MCP + code mode</span>
-        </div>
+        <div class="shell"><span class="cmd">pixi run test</span>     <span class="comment"># pytest</span>
+<span class="cmd">pixi run verify</span>   <span class="comment"># REST + GraphQL + MCP + code mode</span></div>
       </div>
     </div>
 
@@ -859,17 +803,19 @@ GraphQL: one HTTP call, the server resolves the graph.
     '{',
     '  "items": [',
     '    {',
-    '      "id": 118,',
-    '      "name": "Northwind Robotics",',
-    '      "slug": "northwind-robotics",',
+    '      "id": 4,',
+    '      "name": "Globex Networks",',
+    '      "slug": "globex-networks",',
+    '      "plan_id": 2,',
     '      "status": "past_due",',
-    '      "segment": "midmarket",',
-    '      "country": "DE",',
-    '      "seat_limit": 25,',
-    '      "version": 4',
+    '      "seat_limit": 250,',
+    '      "country": "US",',
+    '      "segment": "smb",',
+    '      "created_at": "2026-05-01T17:44:22+00:00",',
+    '      "version": 1',
     '    }',
     '  ],',
-    '  "next_cursor": "eyJpZCI6IDExOH0"',
+    '  "next_cursor": "WzVd"',
     '}',
     '',
     'recorded from the seeded small preset, run the lab for live data'
@@ -880,19 +826,22 @@ GraphQL: one HTTP call, the server resolves the graph.
     '',
     '{',
     '  "data": {',
-    '    "accounts": [',
-    '      {',
-    '        "id": "118",',
-    '        "name": "Northwind Robotics",',
-    '        "status": "PAST_DUE",',
-    '        "invoices": [',
-    '          { "totalCents": 56742, "dueAt": "2026-06-02T00:00:00+00:00" }',
-    '        ],',
-    '        "tickets": [',
-    '          { "id": "4211", "subject": "Export job has been stuck since morning", "priority": "CRITICAL" }',
-    '        ]',
-    '      }',
-    '    ]',
+    '    "accounts": {',
+    '      "items": [',
+    '        {',
+    '          "id": "4",',
+    '          "name": "Globex Networks",',
+    '          "status": "past_due",',
+    '          "invoices": [',
+    '            {',
+    '              "totalCents": 47362,',
+    '              "dueAt": "2026-03-08T12:59:27+00:00"',
+    '            }',
+    '          ],',
+    '          "tickets": []',
+    '        }',
+    '      ]',
+    '    }',
     '  }',
     '}',
     '',
@@ -905,13 +854,31 @@ GraphQL: one HTTP call, the server resolves the graph.
   var btn = document.getElementById('run-btn');
 
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
-  tabs.forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      tabs.forEach(function (other) { other.setAttribute('aria-selected', 'false'); });
-      tab.setAttribute('aria-selected', 'true');
-      ['rest-out', 'gql-out', 'notes'].forEach(function (id) {
-        document.getElementById(id).hidden = id !== tab.dataset.target;
-      });
+  var panels = ['rest-out', 'gql-out', 'notes'];
+
+  function selectTab(tab) {
+    tabs.forEach(function (other) {
+      var active = other === tab;
+      other.setAttribute('aria-selected', active ? 'true' : 'false');
+      other.setAttribute('tabindex', active ? '0' : '-1');
+    });
+    panels.forEach(function (id) {
+      document.getElementById(id).hidden = id !== tab.dataset.target;
+    });
+  }
+
+  tabs.forEach(function (tab, index) {
+    tab.addEventListener('click', function () { selectTab(tab); });
+    tab.addEventListener('keydown', function (event) {
+      var next = null;
+      if (event.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
+      if (event.key === 'ArrowLeft') next = tabs[(index - 1 + tabs.length) % tabs.length];
+      if (event.key === 'Home') next = tabs[0];
+      if (event.key === 'End') next = tabs[tabs.length - 1];
+      if (!next) return;
+      event.preventDefault();
+      selectTab(next);
+      next.focus();
     });
   });
 
