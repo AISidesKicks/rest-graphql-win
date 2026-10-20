@@ -180,21 +180,50 @@ a { color: var(--blue-deep); }
 
 /* Comparison panel cards */
 
-.img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 26px; align-items: start; }
+.img-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; align-items: stretch; }
 
-.img-card { background: var(--panel); border: 3px solid rgba(20, 24, 31, .1); border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 0 rgba(20, 24, 31, .06); }
+.img-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background: var(--panel);
+  border: 3px solid rgba(20, 24, 31, .1);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 0 rgba(20, 24, 31, .06);
+}
 .img-card img { width: 100%; height: auto; display: block; background: var(--paper); }
-.img-card figcaption { padding: 16px 22px 18px; font-size: .95rem; color: var(--ink-soft); }
-.img-card figcaption strong { color: var(--ink); font-family: var(--display); font-weight: 600; }
-.img-card figcaption ul { margin: 10px 0 12px; padding-left: 18px; }
-.img-card figcaption li { margin-bottom: 4px; }
-.img-card figcaption .cap-note { margin: 0; font-size: .88rem; }
+.img-card figcaption {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 20px 16px;
+  font-size: .92rem;
+  color: var(--ink-soft);
+}
+.img-card .cap-title {
+  display: block;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+.img-card .cap-sub { display: block; font-size: .85rem; margin: 1px 0 9px; }
+.img-card figcaption ul { margin: 0 0 10px; padding-left: 17px; }
+.img-card figcaption li { margin-bottom: 3px; }
+.img-card .cap-note {
+  margin: auto 0 0;
+  padding-top: 9px;
+  border-top: 1px solid rgba(20, 24, 31, .08);
+  font-size: .85rem;
+}
 
 /* Sections */
 
 section { padding: 52px 0; }
 
-.section-head { text-align: center; margin-bottom: 30px; }
+.section-head { text-align: center; margin-bottom: 22px; }
 .section-head h2 { font-size: clamp(1.7rem, 3.6vw, 2.4rem); margin: 0 0 8px; }
 .section-head p { margin: 0 auto; max-width: 760px; color: var(--ink-soft); }
 
@@ -614,7 +643,8 @@ GraphQL: one HTTP call, the server resolves the graph.
                alt="Comparison card of REST versus GraphQL, multi endpoint versus single endpoint">
         </picture>
         <figcaption>
-          <strong>REST vs GraphQL</strong> (reading and updating data)
+          <span class="cap-title">REST vs GraphQL</span>
+          <span class="cap-sub">reading and updating data</span>
           <ul>
             <li>Many endpoints versus one endpoint</li>
             <li>Fixed payloads versus exactly the fields you ask for</li>
@@ -631,7 +661,8 @@ GraphQL: one HTTP call, the server resolves the graph.
                alt="Comparison card of OLTP versus OLAP, fast and frequent versus deep and complex">
         </picture>
         <figcaption>
-          <strong>OLTP vs OLAP</strong> (running the business versus explaining it)
+          <span class="cap-title">OLTP vs OLAP</span>
+          <span class="cap-sub">running the business versus explaining it</span>
           <ul>
             <li>Live rows versus consolidated columns</li>
             <li>Write heavy versus read heavy</li>
@@ -648,7 +679,8 @@ GraphQL: one HTTP call, the server resolves the graph.
                alt="Comparison card of REST and GraphQL versus MCP and code mode, manual assembly versus agentic and automated">
         </picture>
         <figcaption>
-          <strong>REST / GraphQL vs MCP + code mode</strong> (manual assembly versus agent driven)
+          <span class="cap-title">REST / GraphQL vs MCP + code mode</span>
+          <span class="cap-sub">manual assembly versus agent driven</span>
           <ul>
             <li>One tool call per row versus one program</li>
             <li>Every payload enters the context versus none of them</li>
