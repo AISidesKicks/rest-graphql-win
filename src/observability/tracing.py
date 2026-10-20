@@ -10,10 +10,11 @@ from __future__ import annotations
 
 import json
 import threading
+from collections.abc import Iterator
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
 from opentelemetry import trace
 from opentelemetry.sdk.resources import Resource
@@ -71,15 +72,15 @@ def span_to_dict(span: ReadableSpan) -> dict[str, Any]:
         "trace_id": format(context.trace_id, "032x"),
         "span_id": format(context.span_id, "016x"),
         "parent_span_id": format(parent.span_id, "016x") if parent else None,
-        "start_time": datetime.fromtimestamp(span.start_time / 1e9, tz=timezone.utc).isoformat(),
-        "end_time": datetime.fromtimestamp(span.end_time / 1e9, tz=timezone.utc).isoformat(),
+        "start_time": datetime.fromtimestamp(span.start_time / 1e9, tz=UTC).isoformat(),
+        "end_time": datetime.fromtimestamp(span.end_time / 1e9, tz=UTC).isoformat(),
         "duration_ms": round((span.end_time - span.start_time) / 1e6, 3),
         "attributes": attributes,
         "status": status,
         "events": [
             {
                 "name": event.name,
-                "timestamp": datetime.fromtimestamp(event.timestamp / 1e9, tz=timezone.utc).isoformat(),
+                "timestamp": datetime.fromtimestamp(event.timestamp / 1e9, tz=UTC).isoformat(),
                 "attributes": {k: _attr_value(v) for k, v in (event.attributes or {}).items()},
             }
             for event in span.events
@@ -106,7 +107,7 @@ def setup_tracing(
 
     if traces_dir is not None:
         traces_dir.mkdir(parents=True, exist_ok=True)
-        stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S")
+        stamp = datetime.now(tz=UTC).strftime("%Y%m%dT%H%M%S")
         provider.add_span_processor(
             SimpleSpanProcessor(JsonlSpanExporter(traces_dir / f"trace-{stamp}.jsonl"))
         )

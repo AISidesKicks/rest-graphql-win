@@ -13,11 +13,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from config import load_settings  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 from app import create_app  # noqa: E402
-from mcplab.catalog import count_tokens, schema_token_report  # noqa: E402
+from config import load_settings  # noqa: E402
+from mcplab.catalog import schema_token_report  # noqa: E402
 
 
 def main() -> int:

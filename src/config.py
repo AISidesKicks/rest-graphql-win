@@ -81,13 +81,24 @@ class Settings:
     code_mode_max_output_bytes: int = 64_000
     code_mode_max_host_calls: int = 200
 
+    _oltp_path: Path | None = None
+    _olap_path: Path | None = None
+
     @property
     def oltp_path(self) -> Path:
-        return self.data_dir / "oltp.sqlite"
+        return self._oltp_path or self.data_dir / "oltp.sqlite"
+
+    @oltp_path.setter
+    def oltp_path(self, value: Path | str) -> None:
+        self._oltp_path = Path(value)
 
     @property
     def olap_path(self) -> Path:
-        return self.data_dir / "olap.duckdb"
+        return self._olap_path or self.data_dir / "olap.duckdb"
+
+    @olap_path.setter
+    def olap_path(self, value: Path | str) -> None:
+        self._olap_path = Path(value)
 
     @property
     def csv_dir(self) -> Path:

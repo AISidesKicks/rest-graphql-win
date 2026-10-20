@@ -10,13 +10,11 @@ a single call into the service layer.
 from __future__ import annotations
 
 import asyncio
-from typing import Any, Callable, Generic, Hashable, TypeVar
-
-K = TypeVar("K", bound=Hashable)
-V = TypeVar("V")
+from collections.abc import Callable
+from typing import Any
 
 
-class BatchLoader(Generic[K, V]):
+class BatchLoader[K, V]:
     """Resolve many keys with one call, and cache the answers."""
 
     def __init__(self, load: Callable[[list[K]], list[V]]) -> None:
@@ -50,7 +48,7 @@ class BatchLoader(Generic[K, V]):
                 if not future.done():
                     future.set_exception(exc)
             return
-        for key, result in zip(keys, results):
+        for key, result in zip(keys, results, strict=False):
             if not pending[key].done():
                 pending[key].set_result(result)
 

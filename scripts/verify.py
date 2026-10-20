@@ -321,8 +321,7 @@ print("accounts at risk", len(accounts["items"]))
 def main() -> int:
     settings = load_settings()
     parser = argparse.ArgumentParser(description="Verify the whole lab")
-    parser.add_argument("--verbose", action="store_true")
-    args = parser.parse_args()
+    parser.parse_args()
 
     checks = Checks()
     app = create_app(settings)

@@ -9,7 +9,6 @@ through the batch loader, and errors travel inside the payload.
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any
 
 import strawberry
 from strawberry.scalars import JSON
@@ -183,7 +182,7 @@ class Ticket:
         return await context.loaders.tags_by_ticket.load(self.id)
 
     @strawberry.field(description="The account the ticket belongs to")
-    async def account(self, info: strawberry.Info) -> "Account | None":
+    async def account(self, info: strawberry.Info) -> Account | None:
         context = info.context
         if not context.batch_enabled:
             account = context.services.repo.get_account(self.account_id)

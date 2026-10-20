@@ -286,7 +286,7 @@ class Query:
     )
     def partial_failure_demo(
         self, fail_required: bool = False, fail_optional: bool = False
-    ) -> PartialFailureDemo:
+    ) -> PartialFailureDemo | None:
         return PartialFailureDemo(fail_required=fail_required, fail_optional=fail_optional)
 
     @strawberry.field(description="The reference business question, answered by DuckDB")

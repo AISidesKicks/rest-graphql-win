@@ -11,7 +11,8 @@ and the traces show the whole chain: MCP tool call, HTTP request, SQL query.
 from __future__ import annotations
 
 import json
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
@@ -112,7 +113,7 @@ def build_tool_callable(
         return call_graphql
 
     def call_rest(*args: Any, **kwargs: Any) -> Any:
-        arguments: dict[str, Any] = dict(zip(spec.arguments, args))
+        arguments: dict[str, Any] = dict(zip(spec.arguments, args, strict=False))
         arguments.update(kwargs)
         with trace_tool_call(spec.name, spec.group):
             try:

@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from data.sqlite_repo import SqliteRepo
 from domain.clock import now_iso

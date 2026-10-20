@@ -8,9 +8,9 @@ keeps the numbers in the docs reproducible.
 from __future__ import annotations
 
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
-ANCHOR_NOW = datetime(2026, 6, 30, 12, 0, 0, tzinfo=timezone.utc)
+ANCHOR_NOW = datetime(2026, 6, 30, 12, 0, 0, tzinfo=UTC)
 
 
 def now() -> datetime:
@@ -18,7 +18,7 @@ def now() -> datetime:
     override = os.environ.get("LAB_NOW")
     if override:
         try:
-            return datetime.fromisoformat(override).astimezone(timezone.utc)
+            return datetime.fromisoformat(override).astimezone(UTC)
         except ValueError:
             pass
     return ANCHOR_NOW
@@ -29,7 +29,7 @@ def now_iso() -> str:
 
 
 def iso(value: datetime) -> str:
-    return value.astimezone(timezone.utc).isoformat()
+    return value.astimezone(UTC).isoformat()
 
 
 def days_ago(days: float, anchor: datetime | None = None) -> datetime:

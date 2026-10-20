@@ -7,16 +7,15 @@ observability have to be identical for all of them.
 
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator
+from typing import Any
 
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from strawberry.fastapi import GraphQLRouter
 
 from api.graphql.context import GraphQLContext, build_context
-from api.graphql.mutation import Mutation
-from api.graphql.query import Query
 from api.graphql.schema import schema
 from api.rest.errors import install_error_handlers
 from api.rest.routers import analytics_router, operational_router
@@ -104,9 +103,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         prefix="/graphql",
     )
 
-    from mcplab.server import mount_mcp
-
-    _mount_mcp(app, settings)
 
     @app.get("/health", tags=["meta"], operation_id="rest_health")
     def health() -> dict[str, Any]:
@@ -117,6 +113,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             "graphql": "/graphql",
             "mcp": settings.mcp_path,
         }
+
+    _mount_mcp(app, settings)
 
     return app
 

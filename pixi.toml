@@ -43,3 +43,16 @@ verify = "python scripts/verify.py"
 test = "pytest -q"
 lint = "ruff check src scripts tests"
 format = "ruff format src scripts tests"
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+src = ["src", "scripts", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["E402"]
+"tests/*" = ["E402"]

@@ -15,12 +15,12 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from config import load_settings  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 from agent.runner import AgentRunner, build_client  # noqa: E402
 from agent.tasks import REFERENCE_TASK  # noqa: E402
 from app import create_app  # noqa: E402
+from config import load_settings  # noqa: E402
 from mcplab.catalog import schema_token_report  # noqa: E402
 
 

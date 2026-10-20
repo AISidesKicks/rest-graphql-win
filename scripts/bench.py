@@ -16,10 +16,10 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from config import load_settings  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
 from app import create_app  # noqa: E402
+from config import load_settings  # noqa: E402
 
 QUESTION = "How much revenue is at risk from accounts with an overdue invoice and open critical tickets?"
 

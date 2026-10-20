@@ -1,0 +1,11 @@
+line-length = 110
+target-version = "py312"
+src = ["src", "scripts", "tests"]
+
+[lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["B008", "E501"]
+
+[lint.per-file-ignores]
+"scripts/*" = ["E402"]
+"tests/*" = ["E402"]

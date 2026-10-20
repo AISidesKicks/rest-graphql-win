@@ -8,12 +8,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from config import load_settings  # noqa: E402
+from config import load_settings  # noqa: E402, F401
 from data.etl import run_etl  # noqa: E402
 
 
 def main() -> int:
-    settings = load_settings()
     parser = argparse.ArgumentParser(description="Run the ETL")
     parser.add_argument("--oltp", type=Path, default=None, help="source SQLite file")
     parser.add_argument("--olap", type=Path, default=None, help="target DuckDB file")

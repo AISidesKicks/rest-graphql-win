@@ -7,12 +7,9 @@ serializers and to the GraphQL types. Every mutable entity carries a
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from datetime import datetime
+from dataclasses import dataclass
 from enum import StrEnum
-from typing import Any, Generic, TypeVar
-
-T = TypeVar("T")
+from typing import Any
 
 
 class AccountStatus(StrEnum):
@@ -209,7 +206,7 @@ class AuditEvent:
 
 
 @dataclass(frozen=True)
-class Page(Generic[T]):
+class Page[T]:
     """A keyset paginated slice of results."""
 
     items: list[T]
