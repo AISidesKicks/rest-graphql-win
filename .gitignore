@@ -1,0 +1,11 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# generated lab artifacts
+data/
+scratch/*
+!scratch/.gitkeep
+
+# local TLS material
+certs/
