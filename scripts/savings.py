@@ -10,7 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -54,7 +54,7 @@ def print_comparison(native: dict[str, Any], code_mode: dict[str, Any]) -> None:
 def write_report(native: dict[str, Any], code_mode: dict[str, Any], settings: Any) -> Path:
     """Keep the numbers in the scratch directory, so they can be compared later."""
     settings.bench_dir.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S")
+    stamp = datetime.now(tz=UTC).strftime("%Y%m%dT%H%M%S")
     path = settings.bench_dir / f"savings-{stamp}.json"
     path.write_text(
         json.dumps({"native": native, "code_mode": code_mode}, indent=2, default=str),

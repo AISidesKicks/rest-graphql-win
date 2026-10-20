@@ -11,7 +11,7 @@ import argparse
 import json
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -229,7 +229,7 @@ def print_table(results: list[dict[str, Any]]) -> None:
 def write_report(results: list[dict[str, Any]], settings: Any) -> Path:
     """Keep the numbers in the scratch directory, so they can be compared later."""
     settings.bench_dir.mkdir(parents=True, exist_ok=True)
-    stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S")
+    stamp = datetime.now(tz=UTC).strftime("%Y%m%dT%H%M%S")
     path = settings.bench_dir / f"bench-{stamp}.json"
     path.write_text(json.dumps(results, indent=2, default=str), encoding="utf-8")
     return path
