@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -48,6 +49,18 @@ def print_comparison(native: dict[str, Any], code_mode: dict[str, Any]) -> None:
     line("total tokens", "total_tokens")
     line("bytes moved", "bytes_moved")
     line("wall time ms", "wall_time_ms", percent=False)
+
+
+def write_report(native: dict[str, Any], code_mode: dict[str, Any], settings: Any) -> Path:
+    """Keep the numbers in the scratch directory, so they can be compared later."""
+    settings.bench_dir.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(tz=timezone.utc).strftime("%Y%m%dT%H%M%S")
+    path = settings.bench_dir / f"savings-{stamp}.json"
+    path.write_text(
+        json.dumps({"native": native, "code_mode": code_mode}, indent=2, default=str),
+        encoding="utf-8",
+    )
+    return path
 
 
 def main() -> int:
@@ -101,6 +114,9 @@ def main() -> int:
         if args.json:
             print()
             print(json.dumps({"native": native, "code_mode": code_mode}, indent=2, default=str))
+        report = write_report(native, code_mode, settings)
+        print()
+        print(f"the numbers are saved in {report}")
     return 0
 
 
