@@ -71,15 +71,15 @@ def span_to_dict(span: ReadableSpan) -> dict[str, Any]:
         "trace_id": format(context.trace_id, "032x"),
         "span_id": format(context.span_id, "016x"),
         "parent_span_id": format(parent.span_id, "016x") if parent else None,
-        "start_time": datetime.fromtimestamp(span.start_time, tz=timezone.utc).isoformat(),
-        "end_time": datetime.fromtimestamp(span.end_time, tz=timezone.utc).isoformat(),
-        "duration_ms": round((span.end_time - span.start_time) * 1000, 3),
+        "start_time": datetime.fromtimestamp(span.start_time / 1e9, tz=timezone.utc).isoformat(),
+        "end_time": datetime.fromtimestamp(span.end_time / 1e9, tz=timezone.utc).isoformat(),
+        "duration_ms": round((span.end_time - span.start_time) / 1e6, 3),
         "attributes": attributes,
         "status": status,
         "events": [
             {
                 "name": event.name,
-                "timestamp": datetime.fromtimestamp(event.timestamp, tz=timezone.utc).isoformat(),
+                "timestamp": datetime.fromtimestamp(event.timestamp / 1e9, tz=timezone.utc).isoformat(),
                 "attributes": {k: _attr_value(v) for k, v in (event.attributes or {}).items()},
             }
             for event in span.events
